@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu Makanan</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+      background-color: #f9f9f9;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .menu-item {
+      margin-bottom: 15px;
+    }
+    .menu-item label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    .menu-item input {
+      width: 50px;
+      margin-left: 10px;
+    }
+    .order-button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: #28a745;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 5px;
+      margin-top: 20px;
+    }
+    .order-button:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+  <h1>Menu Makanan</h1>
+  <form id="menuForm">
+    <div class="menu-item">
+      <label>
+        <input type="checkbox" name="menu" value="Nasi Goreng"> Nasi Goreng
+      </label>
+      Jumlah: <input type="number" name="quantity" min="1" value="1">
+    </div>
+
+    <div class="menu-item">
+      <label>
+        <input type="checkbox" name="menu" value="Mie Goreng"> Mie Goreng
+      </label>
+      Jumlah: <input type="number" name="quantity" min="1" value="1">
+    </div>
+
+    <div class="menu-item">
+      <label>
+        <input type="checkbox" name="menu" value="Es Teh"> Es Teh
+      </label>
+      Jumlah: <input type="number" name="quantity" min="1" value="1">
+    </div>
+
+    <a href="#" id="orderLink" class="order-button" target="_blank">Kirim ke WhatsApp</a>
+  </form>
+
+  <script>
+    const form = document.getElementById('menuForm');
+    const orderLink = document.getElementById('orderLink');
+
+    form.addEventListener('change', () => {
+      const items = form.querySelectorAll('input[name="menu"]:checked');
+      let orderText = 'Halo, saya ingin memesan:%0A';
+
+      items.forEach(item => {
+        const quantity = item.parentElement.nextElementSibling.querySelector('input[name="quantity"]').value;
+        orderText += `- ${item.value} x ${quantity}%0A`;
+      });
+
+      const whatsappNumber = '6281234567890'; // Ganti dengan nomor WhatsApp kamu
+      const whatsappLink = `https://wa.me/${whatsappNumber}?text=${orderText}`;
+
+      orderLink.href = whatsappLink;
+    });
+  </script>
+</body>
+</html>
